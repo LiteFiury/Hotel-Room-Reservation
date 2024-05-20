@@ -174,13 +174,13 @@ public class Main {
                                 System.out.println("Action has been cancelled...");
                             }
                         } else if (desiredChoice == 4) {
-                            bookingAndReserving.displayArtWork(5);
+                            bookingAndReserving.displayArtWork(4);
                             bookingAndReserving.cancelRoom(Integer.parseInt(result[1]));
                         } else if (desiredChoice == 5) {
-                            bookingAndReserving.displayArtWork(6);
+                            bookingAndReserving.displayArtWork(5);
                             bookingAndReserving.displayRoomsRegisteredByOneUser(Integer.parseInt(result[1]));
                         } else {
-                            bookingAndReserving.displayArtWork(7);
+                            bookingAndReserving.displayArtWork(6);
                             if (desiredChoice != 0) {
                                 System.out.println("Invalid Choice...Looks like you're Robot...Entering values randomly...You've Have to login again...");
                             }

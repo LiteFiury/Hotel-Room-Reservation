@@ -15,23 +15,7 @@ public class Room {
         {"1st Floor", "105", "2", "true"}, 
         {"1st Floor", "106", "2", "true"}, 
         {"1st Floor", "107", "3", "true"}, 
-        {"1st Floor", "108", "3", "true"}, 
-        {"2nd Floor", "201", "1", "true"},
-        {"2nd Floor", "202", "2", "true"}, 
-        {"2nd Floor", "203", "2", "true"}, 
-        {"2nd Floor", "204", "2", "true"}, 
-        {"2nd Floor", "205", "2", "true"}, 
-        {"2nd Floor", "206", "2", "true"}, 
-        {"2nd Floor", "207", "3", "true"}, 
-        {"2nd Floor", "208", "3", "true"}, 
-        {"3rd Floor", "301", "1", "true"},
-        {"3rd Floor", "302", "2", "true"}, 
-        {"3rd Floor", "303", "2", "true"}, 
-        {"3rd Floor", "304", "2", "true"}, 
-        {"3rd Floor", "305", "2", "true"}, 
-        {"3rd Floor", "306", "2", "true"}, 
-        {"3rd Floor", "307", "3", "true"}, 
-        {"3rd Floor", "308", "3", "true"}
+        {"1st Floor", "108", "3", "true"}
 };
 
 
@@ -63,6 +47,10 @@ public class Room {
 
     void addNewCustomer(Customer customer) {
         this.listOfRegisteredCustomers.add(customer);
+    }
+
+    void removeCustomer(Customer customer) {
+        this.listOfRegisteredCustomers.remove(customer);
     }
 
     boolean isCustomerAlreadyAdded(List<Customer> customersList, Customer customer) {

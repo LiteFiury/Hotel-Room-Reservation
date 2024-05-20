@@ -7,15 +7,15 @@ public class RoomReservation implements DisplayClass{
 
     void bookRoom(int roomNumber, int userID) {
         boolean isFound = false;
-        for (Room r1 : room.getRoomList()) {
-            if (roomNumber == r1.getRoomNumber()) {
+        for (Room room : room.getRoomList()) {
+            if (roomNumber == room.getRoomNumber()) {
                 for (Customer customer : Customer.customerCollection) {
                     if (userID == customer.getUserID()) {
                         isFound = true;
                         if (room.checkRoomStatus(roomNumber)) {
                             if(!room.isCustomerAlreadyAdded(room.getListOfRegisteredCustomers(), customer)) {
                                 room.addNewCustomer(customer);
-                                customer.addNewRoomToCustomerList(r1);
+                                customer.addNewRoomToCustomerList(room);
                                 room.changeRoomStatus(roomNumber, "false");
                                 System.out.printf("\n %50s You've booked %d room", "", roomNumber);
 
@@ -71,7 +71,9 @@ public class RoomReservation implements DisplayClass{
                     for (Room room : customer.getRoomsRegisteredByUser()) {
                         if (room.getRoomNumber() == roomNum) {
                             isFound = true;
+                            room.removeCustomer(customer);
                             customer.removeRoom(room);
+                            room.changeRoomStatus(roomNum, "true");
                             System.out.println("Room with Room Number \"" + roomNum + "\" has been cancelled successfully.");
                             break;
                         }
@@ -126,7 +128,7 @@ public class RoomReservation implements DisplayClass{
 
     @Override
     public void displayArtWork(int option) {
-        String artWork;
+        String artWork = "";
         if (option == 1) {
             artWork = """
                                         
@@ -136,8 +138,8 @@ public class RoomReservation implements DisplayClass{
                     88~~~b. 88    88 88    88 88`8b        88`8b   88    88 88    88 88  88  88\s
                     88   8D `8b  d8' `8b  d8' 88 `88.      88 `88. `8b  d8' `8b  d8' 88  88  88\s
                     Y8888P'  `Y88P'   `Y88P'  YP   YD      88   YD  `Y88P'   `Y88P'  YP  YP  YP\s
-                                                                                                            \s
-                                                                                                            \s
+                                                                                               \s
+                                                                                               \s
                     """;
         } else if (option == 2) {
             artWork = """
@@ -166,28 +168,28 @@ public class RoomReservation implements DisplayClass{
         } else if (option == 4) {
             artWork = """
                                         
-                     .o88b.  .d8b.  d8b   db  .o88b. d88888b db           d88888b db      d888888b  d888b  db   db d888888b\s
-                    d8P  Y8 d8' `8b 888o  88 d8P  Y8 88'     88           88'     88        `88'   88' Y8b 88   88 `~~88~~'\s
-                    8P      88ooo88 88V8o 88 8P      88ooooo 88           88ooo   88         88    88      88ooo88    88   \s
-                    8b      88~~~88 88 V8o88 8b      88~~~~~ 88           88~~~   88         88    88  ooo 88~~~88    88   \s
-                    Y8b  d8 88   88 88  V888 Y8b  d8 88.     88booo.      88      88booo.   .88.   88. ~8~ 88   88    88   \s
-                     `Y88P' YP   YP VP   V8P  `Y88P' Y88888P Y88888P      YP      Y88888P Y888888P  Y888P  YP   YP    YP   \s
-                                                                                                                           \s
-                                                                                                                           \s
+                     .o88b.  .d8b.  d8b   db  .o88b. d88888b db           d8888b.  .d88b.   .d88b.  .88b  d88.\s
+                    d8P  Y8 d8' `8b 888o  88 d8P  Y8 88'     88           88  `8D .8P  Y8. .8P  Y8. 88'YbdP`88\s
+                    8P      88ooo88 88V8o 88 8P      88ooooo 88           88oobY' 88    88 88    88 88  88  88\s
+                    8b      88~~~88 88 V8o88 8b      88~~~~~ 88           88`8b   88    88 88    88 88  88  88\s
+                    Y8b  d8 88   88 88  V888 Y8b  d8 88.     88booo.      88 `88. `8b  d8' `8b  d8' 88  88  88\s
+                     `Y88P' YP   YP VP   V8P  `Y88P' Y88888P Y88888P      88   YD  `Y88P'   `Y88P'  YP  YP  YP\s
+                                                                                                              \s
+                                                                                                              \s
                     """;
         } else if (option == 5) {
             artWork = """
                                         
-                    d8888b. d88888b  d888b  d888888b .d8888. d888888b d88888b d8888b. d88888b d8888b.      d8888b.  .d88b.   .d88b.  .88b  d88. .d8888.     \s
-                    88  `8D 88'     88' Y8b   `88'   88'  YP `~~88~~' 88'     88  `8D 88'     88  `8D      88  `8D .8P  Y8. .8P  Y8. 88'YbdP`88 88'  YP     \s
-                    88oobY' 88ooooo 88         88    `8bo.      88    88ooooo 88oobY' 88ooooo 88   88      88oobY' 88    88 88    88 88  88  88 `8bo.       \s
-                    88`8b   88~~~~~ 88  ooo    88      `Y8b.    88    88~~~~~ 88`8b   88~~~~~ 88   88      88`8b   88    88 88    88 88  88  88   `Y8b.     \s
-                    88 `88. 88.     88. ~8~   .88.   db   8D    88    88.     88 `88. 88.     88  .8D      88 `88. `8b  d8' `8b  d8' 88  88  88 db   8D     \s
-                    88   YD Y88888P  Y888P  Y888888P `8888Y'    YP    Y88888P 88   YD Y88888P Y8888D'      88   YD  `Y88P'   `Y88P'  YP  YP  YP `8888Y'     \s
-                                                                                                                                                                         \s
-                                                                                                                                                                         \s
+                    d8888b. d88888b  d888b  d888888b .d8888. d888888b d88888b d8888b. d88888b d888b.      d8888b.  .d88b.   .d88b.  .88b  d88. .d8888.     \s
+                    88  `8D 88'     88' Y8b   `88'   88'  YP `~~88~~' 88'     88  `8D 88'     88  `8D     88  `8D .8P  Y8. .8P  Y8. 88'YbdP`88 88'  YP     \s
+                    88oobY' 88ooooo 88         88    `8bo.      88    88ooooo 88oobY' 88ooooo 88   88     88oobY' 88    88 88    88 88  88  88 `8bo.       \s
+                    88`8b   88~~~~~ 88  ooo    88      `Y8b.    88    88~~~~~ 88`8b   88~~~~~ 88   88     88`8b   88    88 88    88 88  88  88   `Y8b.     \s
+                    88 `88. 88.     88. ~8~   .88.   db   8D    88    88.     88 `88. 88.     88  .8D     88 `88. `8b  d8' `8b  d8' 88  88  88 db   8D     \s
+                    88   YD Y88888P  Y888P  Y888888P `8888Y'    YP    Y88888P 88   YD Y88888P Y888D'      88   YD  `Y88P'   `Y88P'  YP  YP  YP `8888Y'     \s
+                                                                                                                                                           \s
+                                                                                                                                                           \s
                     """;
-        } else {
+        } else if (option == 6) {
             artWork = """
 
                     db       .d88b.   d888b   d888b  d88888b d8888b.       .d88b.  db    db d888888b\s
